@@ -10,8 +10,7 @@ public class NavigationMenu {
 
     public void selectMenu(String menuName) {
         String selector = String.format("//span[.='%s']", menuName);
-        Actions act = new Actions(getWebDriver());
-        act.moveToElement($(By.xpath(selector))).perform();
+        ($(By.xpath(selector))).hover();
     }
 
     public void selectSubMenu(String subMenuName) {
