@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class DepositInfoPage extends BasePage{
 
     public static String checkHeader(){
-        String s = $(By.xpath("//h2[@class='kit-heading kit-heading_l product-teaser-full-width__header'][1]")).innerText();
+        String s = $(By.xpath("//div[@class='kit-row'][1]/descendant::h2")).innerText();
         return s;
     }
 }
