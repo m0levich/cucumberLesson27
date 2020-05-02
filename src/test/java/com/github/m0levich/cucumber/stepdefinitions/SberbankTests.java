@@ -1,29 +1,21 @@
 package com.github.m0levich.cucumber.stepdefinitions;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import com.github.m0levich.pages.BasePage;
 import com.github.m0levich.pages.DepositInfoPage;
 import com.github.m0levich.pages.DepositsPage;
 import com.github.m0levich.pages.MainPage;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.title;
 
-public class Sberbank {
-
-    @BeforeMethod
-    public void initDriver() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
-        Configuration.startMaximized = true;
-    }
+public class SberbankTests {
+    private DepositsPage depositPage = new DepositsPage();
+    private DepositsPage.TabSelectDeposit tab = new DepositsPage.TabSelectDeposit();
 
     @Когда("перейти на {string}")
     public void goToPage(String string) {
@@ -49,13 +41,11 @@ public class Sberbank {
 
     @Тогда("Перейти на вкладку {string}")
     public void goToTab(String string) {
-        DepositsPage depositPage = new DepositsPage();
         depositPage.selectTab(string);
     }
 
     @Тогда("Установлен чекбокс «Онлайн». Отображаются 4 чек-бокса")
     public void checkTabSelectionDeposit(List<String> list) {
-        DepositsPage.TabSelectDeposit tab = new DepositsPage.TabSelectDeposit();
         for (int i = 0; i < list.size(); i++) {
             Assert.assertEquals(list, tab.selectCheckBoxes());
         }
@@ -64,7 +54,6 @@ public class Sberbank {
 
     @Тогда("Отображается 3 вклада")
     public void checkDefaultResult(List<String> list) {
-        DepositsPage.TabSelectDeposit tab = new DepositsPage.TabSelectDeposit();
         for (int i = 0; i < list.size(); i++) {
             Assert.assertEquals(tab.getResult(), list);
         }
@@ -72,14 +61,12 @@ public class Sberbank {
 
     @Тогда("Выбрать чек-боксы Хочу снимать и Хочу пополнять")
     public void choiceInput() {
-        DepositsPage.TabSelectDeposit tab = new DepositsPage.TabSelectDeposit();
         tab.clickInput(1);
         tab.clickInput(2);
     }
 
     @Тогда("Остался только 1 вклад")
     public void checkResult(List<String> list) {
-        DepositsPage.TabSelectDeposit tab = new DepositsPage.TabSelectDeposit();
         for (int i = 0; i < list.size(); i++) {
             Assert.assertEquals(tab.getResult(), list);
         }
@@ -87,7 +74,7 @@ public class Sberbank {
 
     @Тогда("Нажать на кнопку Подробнее вклада {string}")
     public void transitionsOnMoreDetails(String nameDeposit) {
-        DepositsPage.TabSelectDeposit.transitionsToMoreDetails(nameDeposit);
+        tab.transitionsToMoreDetails(nameDeposit);
     }
 
     @Тогда("В новом окне открылось окно с названием {string}")

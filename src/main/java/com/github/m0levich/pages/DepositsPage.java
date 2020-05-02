@@ -1,5 +1,6 @@
 package com.github.m0levich.pages;
 
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class DepositsPage extends BasePage {
             switchTo().defaultContent();
         }
 
-        public static void transitionsToMoreDetails(String name) {
+        public void transitionsToMoreDetails(String name) {
             switchTo().frame("iFrameResizer0");
             String selector = String.format("//h3[.='Вклад %s']/ancestor::div[@id='depositSelection']/descendant::span[.='Подробнее']", name);
             $(By.xpath(selector)).click();
@@ -60,9 +61,11 @@ public class DepositsPage extends BasePage {
         }
 
         public static void closeCookieMessage(){
-            if($(By.xpath("//a[@title='Закрыть предупреждение']")).isDisplayed()){
-                $(By.xpath("//a[@title='Закрыть предупреждение']")).click();
+            SelenideElement cookieMessage = $(By.xpath("//a[@title='Закрыть предупреждение']"));
+            if(cookieMessage.isDisplayed()){
+                cookieMessage.click();
             }
         }
+
     }
 }
