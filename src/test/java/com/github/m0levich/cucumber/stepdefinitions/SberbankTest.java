@@ -1,5 +1,6 @@
 package com.github.m0levich.cucumber.stepdefinitions;
 
+import com.github.m0levich.blocks.TabSelectDeposit;
 import com.github.m0levich.pages.BasePage;
 import com.github.m0levich.pages.DepositInfoPage;
 import com.github.m0levich.pages.DepositsPage;
@@ -13,9 +14,9 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.title;
 
-public class SberbankTests {
+public class SberbankTest {
     private DepositsPage depositPage = new DepositsPage();
-    private DepositsPage.TabSelectDeposit tab = new DepositsPage.TabSelectDeposit();
+    private TabSelectDeposit tab = new TabSelectDeposit();
 
     @Когда("перейти на {string}")
     public void goToPage(String string) {
@@ -24,19 +25,20 @@ public class SberbankTests {
 
     @Тогда("название страницы {string}")
     public void namePageCheck(String string) {
-        title().contains(string);
+        Assert.assertTrue(title().contains(string), "Title is not contains expected text");
     }
 
     @Когда("Перейти через верхнее меню во {string}")
     public void goToPageDeposit(String string) {
         BasePage basePage = new MainPage();
-        basePage.getNavigationMenu().selectMenu(string);
-        basePage.getNavigationMenu().selectSubMenu(string);
+        basePage.navigationMenu.selectMenu(string);
+        basePage.navigationMenu.selectSubMenu(string);
     }
 
     @Тогда("название новой страницы {string}")
     public void newNamePageCheck(String string) {
-        title().contains(string);
+        Assert.assertTrue(title().contains(string), "Title is not contains expected text");
+
     }
 
     @Тогда("Перейти на вкладку {string}")
@@ -79,7 +81,7 @@ public class SberbankTests {
 
     @Тогда("В новом окне открылось окно с названием {string}")
     public void checkNewTitle(String string) {
-        title().contains(string);
+        Assert.assertTrue(title().contains(string), "Title is not contains expected text");
     }
 
     @Тогда("На странице отображается надпись {string}")
